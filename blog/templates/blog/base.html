@@ -1,0 +1,144 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href = "{% static 'blog/main.css' %}">
+    <script src="https://kit.fontawesome.com/79aa81293a.js" crossorigin="anonymous"></script>
+
+    {% if title %}
+    <title>Python Therapy - {{title}}</title>
+    {% else %}
+    <title> Python Therapy Blog</title>
+    {% endif %}
+
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Pytherapy Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+                <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'blog-create' %}">New Post</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main role="main" class="container">
+        <div class="row">
+          <div class="col-md-8">
+            {% if messages %}
+                {% for message in messages %}
+                  <div class = "alert alert-{{message.tags}}">
+                    {{message}}
+                  </div>
+                {% endfor%}
+         {% endif %}
+            {% block content %}{% endblock %}
+          </div>
+          <div class="col-md-4">
+            <div class="content-section">
+              <h3>Our Sidebar</h3>
+              <p class='text-muted'>You can put any information here you'd like.
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-light">Our Merch Store</li>
+                  <li class="list-group-item list-group-item-light">Amazon Affiliate</li>
+                  <li class="list-group-item list-group-item-light">Instagram</li>
+                  <li class="list-group-item list-group-item-light">Contribute</li>
+                </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+
+
+      
+      <footer class="site-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <h6>About</h6>
+              <p class="text-justify">Python Therapy<i> - YOUR PYTHON THERAPIST! </i> is an initiative  to help the upcoming young programmers with the code. Python Therapy focuses on providing the most efficient code or snippets as the code wants to be simple. We help programmers build up concepts in different areas that include Python, Javascript, HTML, CSS, Bootstrap, Machine Learning, Artificial Intelligence, Deep Learning, Django and many more.</p>
+            </div>
+  
+            <div class="col-xs-6 col-md-3">
+              <h6>Categories</h6>
+              <ul class="footer-links">
+                <li><a href="#">Python</a></li>
+                <li><a href="#">Machine Learning</a></li>
+                <li><a href="#">Artificial Intelligence</a></li>
+                <li><a href="#">Web Development</a></li>
+                <li><a href="#">Django</a></li>
+                <li><a href="#">snippets</a></li>
+              </ul>
+            </div>
+  
+            <div class="col-xs-6 col-md-3">
+              <h6>Quick Links</h6>
+              <ul class="footer-links">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Contribute</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+              <p class="copyright-text">Copyright &copy; 2020. All Rights Reserved by 
+           <a href="#">Python Therapy</a>.
+              </p>
+            </div>
+  
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <ul class="social-icons">
+                <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a class="twitter" href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a class="dribbble" href="#"><i class="far fa-envelope"></i></a></li>
+                <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+              </ul>
+            </div>
+          </div>
+        </div>
+  </footer>
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
